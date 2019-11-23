@@ -5,17 +5,16 @@
 #ifndef FRACTAL_DEMO_BITMAPFILEHEADER_HPP
 #define FRACTAL_DEMO_BITMAPFILEHEADER_HPP
 
-#pragma pack(2)
-
 #include <cstdint>
 
+#pragma pack(push, 1)
 struct BitMapFileHeader
 {
-    char header[2]{'B' , 'M'};
+    std::uint16_t header{0x4D42};
     std::int32_t fileSize;
-    std::int32_t reserved{0};
+    std::int16_t reserved1{0};
+    std::int16_t reserved2{0};
     std::int32_t dataOffset;
 };
-
-
+#pragma pack(pop)
 #endif //FRACTAL_DEMO_BITMAPFILEHEADER_HPP

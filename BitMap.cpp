@@ -7,15 +7,15 @@
 #include "BitMapInfoHeader.hpp"
 #include <fstream>
 
-BitMap::BitMap(int width, int height): m_width(width), m_height(height), m_pPixels(new std::uint8_t[width*height*3]{})
+BitMap::BitMap(int width, int height): m_width(width), m_height(height), m_pPixels(new std::uint8_t[width * height * 3])
 {
-
 }
 
 BitMap::~BitMap()
-= default;
+{
+}
 
-bool BitMap::write(std::string filename)
+bool BitMap::write(const std::string& filename)
 {
     BitMapFileHeader fileHeader;
     BitMapInfoHeader infoHeader;
@@ -26,7 +26,7 @@ bool BitMap::write(std::string filename)
     infoHeader.width = m_width;
     infoHeader.height = m_height;
 
-    std::ofstream file;
+    std::fstream file;
 
     file.open(filename, std::ios::out | std::ios::binary);
 
@@ -40,11 +40,6 @@ bool BitMap::write(std::string filename)
     file.write((char *)m_pPixels.get() , m_width * m_height * 3); //get() gives the raw pointer under the unique_ptr
 
     file.close();
-
-    if (!file)
-    {
-        return false;
-    }
 
     return true;
 }

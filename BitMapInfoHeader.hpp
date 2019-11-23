@@ -5,9 +5,9 @@
 #ifndef FRACTAL_DEMO_BITMAPINFOHEADER_HPP
 #define FRACTAL_DEMO_BITMAPINFOHEADER_HPP
 
-#pragma pack(2)
-
 #include <cstdint>
+
+#pragma pack(push, 1)
 
 struct BitMapInfoHeader
 {
@@ -23,4 +23,6 @@ struct BitMapInfoHeader
     std::int32_t colours{0};
     std::int32_t importantColours{0};
 };
+
+#pragma pack(pop)
 #endif //FRACTAL_DEMO_BITMAPINFOHEADER_HPP
