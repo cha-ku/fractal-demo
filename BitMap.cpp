@@ -46,4 +46,13 @@ bool BitMap::write(const std::string& filename)
 
 void BitMap::setPixel(int x, int y, std::uint8_t red, std::uint8_t green, std::uint8_t blue)
 {
+    std::uint8_t *pPixel = m_pPixels.get();
+
+    pPixel += (y * 3) * m_width + (x * 3);
+
+    // Since BMP is little-endian: int 1234 will be stored as 4321
+    pPixel[0] = blue;
+    pPixel[1] = green;
+    pPixel[2] = red;
+
 }
