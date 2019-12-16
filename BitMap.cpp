@@ -7,13 +7,9 @@
 #include "BitMapInfoHeader.hpp"
 #include <fstream>
 
-BitMap::BitMap(int width, int height): m_width(width), m_height(height), m_pPixels(new std::uint8_t[width * height * 3])
-{
-}
+BitMap::BitMap(int width, int height): m_width(width), m_height(height), m_pPixels(new std::uint8_t[width * height * 3]) {}
 
-BitMap::~BitMap()
-{
-}
+BitMap::~BitMap() {}
 
 bool BitMap::write(const std::string& filename)
 {
