@@ -6,6 +6,7 @@
 #include "BitMapFileHeader.hpp"
 #include "BitMapInfoHeader.hpp"
 #include <fstream>
+#include <iostream>
 
 BitMap::BitMap(int width, int height): m_width(width), m_height(height), m_pPixels(new std::uint8_t[width * height * 3]) {}
 
@@ -50,5 +51,4 @@ void BitMap::setPixel(int x, int y, std::uint8_t red, std::uint8_t green, std::u
     pPixel[0] = blue;
     pPixel[1] = green;
     pPixel[2] = red;
-
 }

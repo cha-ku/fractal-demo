@@ -1,6 +1,8 @@
 #include <iostream>
 #include "BitMap.hpp"
 #include "Mandelbrot.hpp"
+#include <vector>
+#include <math.h>
 
 int main()
 {
@@ -12,31 +14,52 @@ int main()
     double min = 999999;
     double max = -999999;
 
-    for (int y = 0; y < HEIGHT; y++)
-    {
-        for (int x = 0; x < WIDTH; x++)
-        {
-            double xFractal = (x - WIDTH/2) * 2.0/WIDTH;
-            double yFractal = (y - HEIGHT/2) * 2.0/HEIGHT;
+    std::vector<int> histogram (Mandelbrot::MAX_ITERATIONS, 0);
+    std::vector<std::vector<int>> iterationCounter;
+    iterationCounter.resize(WIDTH, std::vector<int> (HEIGHT, 0));
 
+    for (int x = 0; x < WIDTH; x++)
+    {
+        for (int y = 0; y < HEIGHT; y++)
+        {
+            double xFractal = (x - WIDTH / 2 - 200) * 2.0 / HEIGHT;
+            double yFractal = (y - HEIGHT / 2) * 2.0 / HEIGHT;
+
+            //First Pass
             int iterations = Mandelbrot::getIterations(xFractal, yFractal);
 
-            std::uint8_t colour = (std::uint8_t) (256 * (double) iterations/Mandelbrot::MAX_ITERATIONS);
+            //Second Pass - part I
+            iterationCounter[x][y] = iterations;
+            //Second Pass - part II
+            // iterations always [1, MAX_ITERATIONS]
+            histogram[iterations]++;
+        }
+    }
 
-            //enhance the colour
-            colour = colour * colour * colour;
+    int total = 0;
+    for (int i = 0; i < Mandelbrot::MAX_ITERATIONS; i++)
+        total += histogram[i];
 
-            bitMap.setPixel(x, y, 0, colour, 0);
+    for (int x = 0; x < WIDTH; x++)
+    {
+        for (int y = 0; y < HEIGHT; y++)
+        {
+            std::uint8_t red = 0;
+            std::uint8_t green = 0;
+            std::uint8_t blue = 0;
 
-            if (colour < min)
-                min = colour;
+            int iterationsPerPixel = iterationCounter[x][y];
+            if (iterationsPerPixel != Mandelbrot::MAX_ITERATIONS) {
+                double hue = 0.0;
+                for (int i = 0; i <= iterationsPerPixel; i++)
+                    hue += ((double) histogram[i]) / total;
+                green = pow(255, hue);
+            }
+            bitMap.setPixel(x, y, red, green, blue);
 
-            if (colour > max)
-                max = colour;
         }
     }
     bitMap.write("../test.bmp");
-    std::cout << "Minimum: " << min << " Maximum: " << max << "\n";
     std::cout << "Finished!\n";
     return 0;
 }
