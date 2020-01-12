@@ -2,8 +2,8 @@
 // Created by cha-ku on 18/11/19.
 //
 
-#ifndef FRACTAL_DEMO_BITMAP_HPP
-#define FRACTAL_DEMO_BITMAP_HPP
+#ifndef BITMAP_HPP
+#define BITMAP_HPP
 
 #include <string>
 #include <cstdint>
@@ -23,4 +23,4 @@ private:
     std::unique_ptr<std::uint8_t[]> m_pPixels{nullptr};
 };
 
-#endif //FRACTAL_DEMO_BITMAP_HPP
+#endif //BITMAP_HPP

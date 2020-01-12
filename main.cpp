@@ -1,6 +1,7 @@
 #include <iostream>
 #include "BitMap.hpp"
 #include "Mandelbrot.hpp"
+#include "zoomlist.hpp"
 #include <vector>
 #include <math.h>
 
@@ -18,15 +19,17 @@ int main()
     std::vector<std::vector<int>> iterationCounter;
     iterationCounter.resize(WIDTH, std::vector<int> (HEIGHT, 0));
 
+    ZoomList myZoomList(WIDTH, HEIGHT);
+    myZoomList.add(Zoom(WIDTH/2, HEIGHT/2, 4.0/WIDTH));
+    myZoomList.add(Zoom(265, 214, 4.0/WIDTH));
+
     for (int x = 0; x < WIDTH; x++)
     {
         for (int y = 0; y < HEIGHT; y++)
         {
-            double xFractal = (x - WIDTH / 2 - 200) * 2.0 / HEIGHT;
-            double yFractal = (y - HEIGHT / 2) * 2.0 / HEIGHT;
-
+            std::pair<double, double> coords = myZoomList.doZoom(x, y);
             //First Pass
-            int iterations = Mandelbrot::getIterations(xFractal, yFractal);
+            int iterations = Mandelbrot::getIterations(coords.first, coords.second);
 
             //Second Pass - part I
             iterationCounter[x][y] = iterations;
@@ -49,7 +52,8 @@ int main()
             std::uint8_t blue = 0;
 
             int iterationsPerPixel = iterationCounter[x][y];
-            if (iterationsPerPixel != Mandelbrot::MAX_ITERATIONS) {
+            if (iterationsPerPixel != Mandelbrot::MAX_ITERATIONS)
+            {
                 double hue = 0.0;
                 for (int i = 0; i <= iterationsPerPixel; i++)
                     hue += ((double) histogram[i]) / total;
