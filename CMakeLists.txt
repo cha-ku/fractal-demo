@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
+set(CMAKE_CXX_STANDARD 17)
 project(fractal_demo)
 add_executable(fractal_demo main.cpp BitMapFileHeader.hpp BitMapInfoHeader.hpp BitMap.cpp BitMap.hpp Mandelbrot.cpp Mandelbrot.hpp zoom.cpp zoom.hpp zoomlist.cpp zoomlist.hpp)
 add_compile_options(-Wall -Wextra -pedantic -Werror)
