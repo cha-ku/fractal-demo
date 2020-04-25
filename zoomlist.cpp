@@ -1,7 +1,5 @@
 #include "zoomlist.hpp"
 
-ZoomList::ZoomList(int width, int height) : m_width(width), m_height(height) {}
-
 void ZoomList::add(const Zoom &zoom)
 {
     zoom_storage.push_back(zoom);
