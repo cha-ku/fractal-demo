@@ -10,7 +10,7 @@ int main()
     const int WIDTH = 800;
 
     FractalCreator myFractal(WIDTH, HEIGHT);
-    myFractal.addZoom(Zoom(375, 125, 2.0/WIDTH));
+    myFractal.addZoom(Zoom(372, 126, 4.0/WIDTH));
     myFractal.calculateIterations();
     myFractal.drawFractal();
     myFractal.writeBitMap("../test.bmp");
