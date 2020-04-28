@@ -50,7 +50,7 @@ void FractalCreator::drawFractal()
             int iterationsPerPixel = m_iterationCounter[x][y];
             if (iterationsPerPixel != Mandelbrot::MAX_ITERATIONS)
             {
-                if (iterationsPerPixel > 0 && iterationsPerPixel < 333)
+                if (iterationsPerPixel > 0 && iterationsPerPixel < Mandelbrot::MAX_ITERATIONS/3)
                 {
                     double hue = 0.0;
                     for (int i = 0; i <= iterationsPerPixel; i++)
@@ -60,7 +60,7 @@ void FractalCreator::drawFractal()
                     blue = 255 * hue;
                 }
 
-                if (iterationsPerPixel > 333 && iterationsPerPixel < 667)
+                if ((iterationsPerPixel >= Mandelbrot::MAX_ITERATIONS/3) && (iterationsPerPixel <= 2 * Mandelbrot::MAX_ITERATIONS/3))
                 {
                     double hue = 0.0;
                     for (int i = 0; i <= iterationsPerPixel; i++)
@@ -70,7 +70,7 @@ void FractalCreator::drawFractal()
                     green = 255 * hue;
                 }
 
-                if (iterationsPerPixel > 667)
+                if (iterationsPerPixel > 2 * Mandelbrot::MAX_ITERATIONS/2)
                 {
                     double hue = 0.0;
                     for (int i = 0; i <= iterationsPerPixel; i++)
@@ -87,8 +87,6 @@ void FractalCreator::drawFractal()
 
 void FractalCreator::writeBitMap(std::string filename)
 {
-    if (m_bitmap.write(filename))
-        std::cout << "Finished writing to " << filename << "\n";
-    else
+    if (!m_bitmap.write(filename))
         std::cerr << "Error writing to " << filename << "\n";
 }
