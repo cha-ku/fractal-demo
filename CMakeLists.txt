@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.6)
 set(CMAKE_CXX_STANDARD 17)
-project(fractal_demo)
+find_package(OpenMP)
+if (OPENMP_FOUND STREQUAL "TRUE") #Fix Needed - CMP0012: if() only checks boolean constants and numbers
+    set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+    set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+endif()
 add_executable(fractal_demo main.cpp BitMapFileHeader.hpp BitMapInfoHeader.hpp BitMap.cpp BitMap.hpp Mandelbrot.cpp Mandelbrot.hpp zoom.cpp zoom.hpp zoomlist.cpp zoomlist.hpp FractalCreator.cpp FractalCreator.hpp)
 add_compile_options(-Wall -Wextra -pedantic -Werror)
-install(TARGETS fractal_demo RUNTIME DESTINATION bin)
