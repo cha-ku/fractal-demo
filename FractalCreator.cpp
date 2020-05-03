@@ -19,7 +19,6 @@ void FractalCreator::calculateIterations()
 {
     for (int x = 0; x < m_width; x++)
     {
-#pragma omp parallel for
         for (int y = 0; y < m_height; y++)
         {
             std::pair<double, double> coords = m_zoomList.doZoom(x, y);
@@ -42,7 +41,6 @@ void FractalCreator::drawFractal()
 
     for (int x = 0; x < m_width; x++)
     {
-#pragma omp parallel for
         for (int y = 0; y < m_height; y++)
         {
             std::uint8_t red = 0;
