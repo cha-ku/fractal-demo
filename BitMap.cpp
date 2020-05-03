@@ -8,7 +8,7 @@
 #include <fstream>
 #include <iostream>
 
-BitMap::BitMap(int width, int height): m_width(width), m_height(height), m_pPixels(new std::uint8_t[width * height * 3]) {}
+BitMap::BitMap(int width, int height): m_width(width), m_height(height), m_pPixels(new std::uint8_t[m_width * m_height * 3]) {}
 
 BitMap::~BitMap() {}
 
@@ -45,7 +45,7 @@ void BitMap::setPixel(int x, int y, std::uint8_t red, std::uint8_t green, std::u
 {
     std::uint8_t *pPixel = m_pPixels.get();
 
-    pPixel += (y * 3) * m_width + (x * 3);
+    pPixel += (x * 3) * m_width + (y * 3);
 
     // Since BMP is little-endian: int 1234 will be stored as 4321
     pPixel[0] = blue;

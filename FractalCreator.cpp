@@ -3,7 +3,7 @@
 
 FractalCreator::FractalCreator(int width, int height) : m_width(width), m_height(height),
   m_histogram(Mandelbrot::MAX_ITERATIONS, 0),
-  m_iterationCounter(m_width, std::vector<int>(m_height, 0)),
+  m_iterationCounter(m_height, std::vector<int>(m_width, 0)),
   m_zoomList(width, height),
   m_bitmap(width, height)
 {
@@ -17,9 +17,9 @@ void FractalCreator::addZoom(const Zoom& zoom)
 
 void FractalCreator::calculateIterations()
 {
-    for (int x = 0; x < m_width; x++)
+    for (int x = 0; x < m_height; ++x)
     {
-        for (int y = 0; y < m_height; y++)
+        for (int y = 0; y < m_width; ++y)
         {
             std::pair<double, double> coords = m_zoomList.doZoom(x, y);
             //First Pass
@@ -39,16 +39,16 @@ void FractalCreator::drawFractal()
 {
     int total = std::accumulate(m_histogram.begin(), m_histogram.end(), 0);
 
-    for (int x = 0; x < m_width; x++)
+    for (int x = 0; x < m_height; ++x)
     {
-        for (int y = 0; y < m_height; y++)
+        for (int y = 0; y < m_width; ++y)
         {
             std::uint8_t red = 0;
             std::uint8_t green = 0;
             std::uint8_t blue = 0;
 
             int iterationsPerPixel = m_iterationCounter[x][y];
-            if (iterationsPerPixel != Mandelbrot::MAX_ITERATIONS)
+            if (iterationsPerPixel < Mandelbrot::MAX_ITERATIONS)
             {
                 if (iterationsPerPixel > 0 && iterationsPerPixel < Mandelbrot::MAX_ITERATIONS/3)
                 {
