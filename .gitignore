@@ -2,3 +2,4 @@
 *.bmp
 cmake-*
 CMakeLists.txt.user
+test.cpp

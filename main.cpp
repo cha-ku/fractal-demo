@@ -16,6 +16,7 @@ int main()
     std::vector<double> processing_times;
     printf("\nImage Size: %d x %d \n\n", WIDTH, HEIGHT);
     printf("\033[1m%5s %15s\n", "Step", "Time (ms)");
+    printf("\033[1m%s \033[1m%d\n", "Number of threads to be used", omp_get_max_threads());
 
     for (int iTrial = 0; iTrial < nTrials; iTrial++)
       {
