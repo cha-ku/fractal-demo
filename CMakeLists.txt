@@ -7,4 +7,4 @@ if (OPENMP_FOUND STREQUAL "TRUE") #Fix Needed - CMP0012: if() only checks boolea
     set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif()
 add_executable(fractal_demo main.cpp BitMapFileHeader.hpp BitMapInfoHeader.hpp BitMap.cpp BitMap.hpp Mandelbrot.cpp Mandelbrot.hpp zoom.cpp zoom.hpp zoomlist.cpp zoomlist.hpp FractalCreator.cpp FractalCreator.hpp)
-add_compile_options(-Wall -Wextra -pedantic -Werror)
+add_compile_options(-Wall -Wextra -pedantic -Werror -Ofast)

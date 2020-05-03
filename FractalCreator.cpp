@@ -72,7 +72,7 @@ void FractalCreator::drawFractal()
                     green = 255 * hue;
                 }
 
-                if (iterationsPerPixel > 2 * Mandelbrot::MAX_ITERATIONS/2)
+                if (iterationsPerPixel > 2 * Mandelbrot::MAX_ITERATIONS/3)
                 {
                     double hue = 0.0;
                     for (int i = 0; i <= iterationsPerPixel; i++)
