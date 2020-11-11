@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
+project(fractal_demo)
 set(CMAKE_CXX_STANDARD 17)
 find_package(OpenMP)
 if (OPENMP_FOUND STREQUAL "TRUE") #Fix Needed - CMP0012: if() only checks boolean constants and numbers
